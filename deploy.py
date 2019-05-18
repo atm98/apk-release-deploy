@@ -257,7 +257,7 @@ if __name__ == '__main__':
         exit(OUTPUT_FILE_PARSING_ERROR)
     
     target_app_file = get_target_file_name(options.app_name, app_version)
-
+    print(options)
     # Upload app file and get shared url
     file_url = upload_to_dropbox(target_app_file, app_file, options.dropbox_token, options.dropbox_folder)
     if file_url == None:
