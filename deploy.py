@@ -248,14 +248,15 @@ if __name__ == '__main__':
     parser.add_argument('--app.name', dest='app_name', help='app name that will be used as file name', required=True)
     parser.add_argument('--dropbox.token', dest='dropbox_token', help='dropbox access token', required=True)
     parser.add_argument('--dropbox.folder', dest='dropbox_folder', help='dropbox target folder', required=True)
-
+    parser.add_argument('--slack.webhook.url', dest="slack_webhook_url', help='slack webhool url',require=True)
+    
     options = parser.parse_args()
 
     # Extract app version and file
     app_version, app_file = get_app(options.release_dir)
     if app_version == None or app_file == None:
         exit(OUTPUT_FILE_PARSING_ERROR)
-    
+    slack_webhook_url = options.slack_webhook_url
     target_app_file = get_target_file_name(options.app_name, app_version)
     print(options)
     # Upload app file and get shared url
@@ -265,7 +266,7 @@ if __name__ == '__main__':
     file_url = upload_to_dropbox(target_app_file, app_file, options.dropbox_token, options.dropbox_folder)
     print(file_url)
     data = json.dumps({"text":"A new APK Has been Relased Install it using the following link: {}".format(file_url) })
-    response = requests.post("https://hooks.slack.com/services/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",headers=headers,data=data)
+    response = requests.post(slack_webhook_url,headers=headers,data=data)
     print(response)
     if file_url == None:
         exit(DROPBOX_ERROR_CODE)
