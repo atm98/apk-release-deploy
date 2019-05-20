@@ -259,7 +259,13 @@ if __name__ == '__main__':
     target_app_file = get_target_file_name(options.app_name, app_version)
     print(options)
     # Upload app file and get shared url
+    headers = {
+    'Content-type': 'application/json',
+    }
     file_url = upload_to_dropbox(target_app_file, app_file, options.dropbox_token, options.dropbox_folder)
+    data = '{"text":"A new APK Has been Relased Install it using the following link: "+file_url}'
+    response = requests.post("https://hooks.slack.com/services/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",headers=headers,data=data)
+    print(response)
     if file_url == None:
         exit(DROPBOX_ERROR_CODE)
     
