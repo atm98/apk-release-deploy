@@ -264,8 +264,7 @@ if __name__ == '__main__':
     }
     file_url = upload_to_dropbox(target_app_file, app_file, options.dropbox_token, options.dropbox_folder)
     print(file_url)
-    data = '{"text":"A new APK Has been Relased Install it using the following link: "+ file_url }'
-    print(data)
+    data = json.dumps({"text":"A new APK Has been Relased Install it using the following link: {}".format(file_url) })
     response = requests.post("https://hooks.slack.com/services/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",headers=headers,data=data)
     print(response)
     if file_url == None:
