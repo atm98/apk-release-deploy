@@ -248,7 +248,7 @@ if __name__ == '__main__':
     parser.add_argument('--app.name', dest='app_name', help='app name that will be used as file name', required=True)
     parser.add_argument('--dropbox.token', dest='dropbox_token', help='dropbox access token', required=True)
     parser.add_argument('--dropbox.folder', dest='dropbox_folder', help='dropbox target folder', required=True)
-    parser.add_argument('--slack.webhook.url', dest="slack_webhook_url", help='slack webhool url',require=True)
+    parser.add_argument('--slack.webhook.url', dest="slack_webhook_url", help='slack webhool url',required=True)
     
     options = parser.parse_args()
 
